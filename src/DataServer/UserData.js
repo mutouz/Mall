@@ -8,9 +8,9 @@ import {
     updateUserUrl
 } from './UrlConfig'
 class UserData {
-    async register(email, password) {
+    async register(Phone, Password) {
         try {
-            const user = { email, password }
+            const user = { Phone, Password }
             const relust = await fetch(registerUrl, {
                 method: 'POST',
                 headers: {
@@ -31,9 +31,9 @@ class UserData {
             }
         }
     }
-    async login(email, password) {
+    async login(Phone, Password) {
         try {
-            const user = { email, password }
+            const user = { Phone, Password }
             const relust = await fetch(loginUrl, {
                 method: 'POST',
                 headers: {
