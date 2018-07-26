@@ -18,6 +18,7 @@ const AddOrderUrl=http+pore+'/api/PlaceOrder/AddOrder';
 const SearchOrderUrl=http+pore+'/api/PlaceOrder/SearchOrder';
 const GoodsIsOKUrl=http+pore+'/api/PlaceOrder/GoodsIsOK';
 const IsPaymentUrl=http+pore+'/api/PlaceOrder/IsPayment';
+const GetOneCustomerUrl=http+pore+'/api/Customer/GetOne'; //返回个人信息
 export {
     registerUrl,
     imgUrl,
@@ -36,4 +37,5 @@ export {
     SearchOrderUrl,
     GoodsIsOKUrl,
     IsPaymentUrl,
+    GetOneCustomerUrl
 }
