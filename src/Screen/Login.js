@@ -18,8 +18,8 @@ export default class Login extends Component {
         super(props)
 
         this.state = {
-            email: '',
-            password: ''
+            Phone: '',
+            Password: ''
         }
     }
 
@@ -33,15 +33,15 @@ export default class Login extends Component {
            </NavBar>
            <InputItem
             type="text"
-            value={this.state.email}
-            onChange={(email)=>{this.setState({email})}}
+            value={this.state.Phone}
+            onChange={(Phone)=>{this.setState({Phone})}}
            >
                邮箱 
            </InputItem>
            <InputItem
-           type="password"
-            value={this.state.password}
-            onChange={(password)=>{this.setState({password})}}
+           type="Password"
+            value={this.state.Password}
+            onChange={(Password)=>{this.setState({Password})}}
            >
              密码
            </InputItem>
@@ -49,7 +49,7 @@ export default class Login extends Component {
                <WhiteSpace/>           
                 <Button
                 onClick={async()=>{                  
-                 const rsult = await UserData.login(this.state.email,this.state.password);
+                 const rsult = await UserData.login(this.state.Phone,this.state.Password);
                   if (!rsult.success) {
                     Toast.fail(rsult.errorMessage);
                         return;

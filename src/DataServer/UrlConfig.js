@@ -1,9 +1,9 @@
-const http="http://60.205.141.116:";
-const pore="60004";
+const http="http://localhost:";
+const pore="52263";
 
 const imgUrl=http+pore+'/resource/image/';
 const registerUrl=http+pore+'/api/register';
-const loginUrl=http+pore+'/api/login';
+const loginUrl=http+pore+'/api/User/Login';
 const changePasswordUrl=http+pore+'/api/changePassword';
 const createUserUrl=http+pore+'/api/createUser';
 const getUserUrl=http+pore+'/api/getUser';
