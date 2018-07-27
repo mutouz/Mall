@@ -1,124 +1,133 @@
 import React, { Component } from 'react'
 
-import {
+import { 
     Button,
     Toast,
     NavBar,
-    WingBlank,
-    WhiteSpace,
+    WingBlank, 
+    WhiteSpace ,
     List,
     InputItem,
-    Icon,
-    TextareaItem,
-    Modal,
-    ImagePicker
+    Flex,
+    ImagePicker,
+    Icon
 } from 'antd-mobile';
 
-import {imgUrl} from '../DataServer/UrlConfig';
-import CustomManager from '../DataServer/CustomerData';
 
+import{imgUrl} from '../DataServer/UrlConfig';
+import userManager from '../DataServer/UserManager';
 
-
-export default class GetUserScreen extends Component {
+export default class MyInfoScreen extends Component {
 
     async componentDidMount(){
-        const result=await CustomManager.getUser();
-        console.log(result);
-        if(result.success===false){
-            Toast.fail(result.errorMessage,1);
-            return;
-        }
-        this.setState({nickname:result.data.nickname,sign:result.data.sign,image:result.data.image})
-          console.log(imgUrl+this.state.image)
+        // console.log(userManager.ifToken());
+        // if (!UserData.ifToken()) {
+        //     this.props.history.replace('/');
+        // }
+    const result=await userManager.getUser();
+    console.log(result);
+    if(result.success===false){
+        Toast.fail(result.errorMessage,1);
+        return;
     }
+    this.setState({Nickname:result.data.Nickname,Avatar:result.data.Avatar})
+     console.log(imgUrl+this.state.Avatar)
+}
+//   async componentDidMount(){
 
-    constructor(props) {
-      super(props)
-    
-      this.state = {
-         nickname:'',
-         sign:'',
-         image:''
-      }
+//     const result = await userManager.getUser();
+
+//     if(result.success === false){
+//         Toast.fail(result.errorMessage,1);
+//         return;
+//     }
+
+//     this.setState({customer:result.data});
+//   }
+
+
+
+
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+        Nickname:'',
+        Avatar:''
     }
+  }
     
 
-    render() {
-        return (
-            <div>
-                <NavBar
-                    mode="dark"
-                    leftContent={[
-                        <span
-                            key={1}
-                            onClick={() => {
-                                this.props.history.replace('/');
-                                {/* CustomManager.logout(); */}
-                            }}
-                        >退出</span>
-                    ]}
-                >个人资料</NavBar>
-                <WhiteSpace/>
+  render() {
 
-            
-                <List>
-                    
-                    <ImagePicker
+    return (
+      <div>
+        <NavBar
+            mode="dark"
+            icon={<Icon type="left" />}
+            onLeftClick={() => { this.props.history.goBack() }}
+                >个人信息</NavBar>
+        {/* <Flex
+          justify={'center'}
+          style={{backgroundColor:'#ffffff'}}
+        >
+          <img
+            alt={''}
+            src={imgUrl+this.state.customer.AvatarImg}
+            style={{width:'100px',height:'100px',margin:'5px'}}
+          /> 
+        </Flex> */}
+        
+        <List>
+        <ImagePicker
                   
-                    files={[{url:imgUrl+this.state.image}]}
-                    onChange={(image)=>{this.setState({image})}}
-                    selectable={this.state.image.length <= 1}
-                    />
-                    <InputItem
-                        type={'text'}
-                        value={this.state.nickname}
-                        onChange={(nickname)=>this.setState({nickname})}
-                        placeholder={'昵称'}
-                    >
-                    昵称
-                    </InputItem>
-                    <InputItem
-                        type={'text'}
-                        value={this.state.sign}
-                        onChange={(sign)=>this.setState({sign})}
-                        placeholder={'个性签名'}
-                    >
-                    签名
-                   
-                    </InputItem>
-                </List>
-                <WhiteSpace/>
-
-
-                <Button
-                    type={'primary'}
-                    onClick={() => {
-                        this.props.history.push('/UpdateUserScreen',this.state.nickname,this.state.sign,this.state.image);
-                        
-                    }}
-                >
-                    修改个人信息
+                  files={[{url:imgUrl+this.state.Avatar}]}
+                  onChange={(Avatar)=>{this.setState({Avatar})}}
+                  selectable={this.state.Avatar.length <= 1}
+                  />
+            <InputItem
+                type={'text'}
+                editable={false}
+                value={this.state.Nickname}
+                onChange={(Nickname)=>{this.setState({Nickname})}}
+                placeholder={'请输入昵称'}
+            >
+                昵称
+            </InputItem>
+        </List>
+        <WhiteSpace/>
+        <WingBlank>
+            <Button
+            type='primary'
+                onClick={async()=>{
+                    this.props.history.push('/UpdateCustomerScreen',this.state.Nickname,this.state.Avatar);
+                }}
+            >
+              修改个人资料
+            </Button>
+            <WhiteSpace/>
+            <Button
+            type='primary'
+                onClick={async()=>{
+                    this.props.history.push('/AddShoppingAddress');
+                }}
+            >
+                设置收货地址
             </Button>
             <WhiteSpace/>
             <WhiteSpace/>
-                <Button
-                    onClick={async() => {
-                        this.props.history.push('/ChangePasswordScreen');
-                    }}
-                >
-                    修改密码
+            <Button
+                type={'warning'}
+                onClick={async()=>{
+                      userManager.tokenOut();
+                      this.props.history.replace('/');
+                      
+                }}
+            >
+                退出登录
             </Button>
-            <WhiteSpace/>
-            <WhiteSpace/>
-                <Button
-                    type={'warning'}
-                    onClick={async() => {
-                        this.props.history.replace('/');
-                    }}
-                >
-                    退出登录
-            </Button>
-            </div>
-        )
-    }
+        </WingBlank>
+      </div>
+    )
+  }
 }
