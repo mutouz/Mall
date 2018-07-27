@@ -11,9 +11,9 @@ import {
 } from 'antd-mobile'
 //导入要用的
 
-import UserData from '../DataServer/UserData'
+import UserManager from '../DataServer/UserManager'
 
-export default class Login extends Component {
+export default class LoginScreen extends Component {
     constructor(props) {
         super(props)
 
@@ -26,36 +26,46 @@ export default class Login extends Component {
     render() {
         return (
         <div>
+            
             <NavBar
             mode="dark"
             >
             登录
            </NavBar>
+           <WhiteSpace/>  
+           <img
+            alt=''
+            src={require('../images/logo.png')}
+            style={{width:'100%'}}
+        />
+        <WhiteSpace/>  
            <InputItem
             type="text"
             value={this.state.Phone}
             onChange={(Phone)=>{this.setState({Phone})}}
            >
-               邮箱 
+               用户名 
            </InputItem>
            <InputItem
-           type="Password"
+           type="password"
             value={this.state.Password}
             onChange={(Password)=>{this.setState({Password})}}
            >
              密码
            </InputItem>
            <WingBlank>  
+               <WhiteSpace/>  
                <WhiteSpace/>           
                 <Button
+                type='primary'
                 onClick={async()=>{                  
-                 const rsult = await UserData.login(this.state.Phone,this.state.Password);
+                 const rsult = await UserManager.login(this.state.Phone,this.state.Password);
                   if (!rsult.success) {
                     Toast.fail(rsult.errorMessage);
                         return;
                     }
                     //跳转后按箭头无法返回
-                    this.props.history.replace('/TabBarDisplay');
+                    this.props.history.replace('/GetUserScreen');
                    //console.log(localStorage.access_token);
                 }}
                 >
@@ -63,8 +73,9 @@ export default class Login extends Component {
                 </Button>
                 <WhiteSpace/>     
                 <Button
+                type='primary'
                 onClick={async()=>{
-                    this.props.history.replace('/Register');
+                    this.props.history.replace('/RegisterScreen');
                 }
                 }
                 >
