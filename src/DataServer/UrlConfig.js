@@ -19,6 +19,10 @@ const SearchOrderUrl=http+pore+'/api/PlaceOrder/SearchOrder';
 const GoodsIsOKUrl=http+pore+'/api/PlaceOrder/GoodsIsOK';
 const IsPaymentUrl=http+pore+'/api/PlaceOrder/IsPayment';
 const GetOneCustomerUrl=http+pore+'/api/Customer/GetOne'; //返回个人信息
+const AddCardUrl=http+pore+'/api/ShoppingCart/AddCard'; //添加购物车信息
+const DeleteCardUrl=http+pore+'/api/ShoppingCart/DeleteCard'; //取消购物车
+const SeachCardUrl=http+pore+'/api/ShoppingCart/SeachCard'; //返回购物车
+
 export {
     registerUrl,
     imgUrl,
@@ -37,5 +41,8 @@ export {
     SearchOrderUrl,
     GoodsIsOKUrl,
     IsPaymentUrl,
-    GetOneCustomerUrl
+    GetOneCustomerUrl,
+    AddCardUrl,
+    DeleteCardUrl,
+    SeachCardUrl
 }
