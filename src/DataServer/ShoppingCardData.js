@@ -19,8 +19,8 @@ class ShoppingCardData {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'token':token,
-                    'uid':uid
+                    'token':'5e5cf44a21a6a674dbf5d9b8ebbb51a7',//token,
+                    'uid':211//uid
                 },
                 body: JSON.stringify(Card)
             });
@@ -45,8 +45,8 @@ class ShoppingCardData {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'token':token,
-                    'uid':uid
+                    'token':'5e5cf44a21a6a674dbf5d9b8ebbb51a7',//token,
+                    'uid':211//uid
                 },
                 body: JSON.stringify(CardDel)
             });
@@ -70,12 +70,14 @@ class ShoppingCardData {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'token':token,
-                    'uid':uid
+                    'token':'5e5cf44a21a6a674dbf5d9b8ebbb51a7',//token,
+                    'uid':211//uid
                 },
               
             });
             const res = await relust.json();
+           
+
             console.log(res);
             return res;
         } catch (error) {
@@ -87,4 +89,4 @@ class ShoppingCardData {
     }
    
 }
-export default new ShoppingCard();
+export default new ShoppingCardData();
