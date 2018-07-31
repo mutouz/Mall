@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {
-    AddOrderUrl
+    AddOrderUrl,
+    SeachProducsUrl
 } from './UrlConfig'
 import axios from 'axios';
 class OrderData {
@@ -25,16 +26,25 @@ class OrderData {
         }
     }
     //商品购买列表
-    async SeachProductUrl(ID) {
+    async SeachProducs(ids) {
         try {
+           //需要有uid
+            const CardDel={Del:ids}
+           
+            // const res = await axios.post(SeachProducsUrl,CardDel);
+            const res = await fetch(SeachProducsUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'token':'b716f3a82315979570f90472bd80eb2d',//token,
+                    'uid':212//uid
+                },
+                body: JSON.stringify(CardDel)
+            });
+            const result = res.json();
             
-            const model={ID};
-            console.log(model);
-            const res = await axios.post(SeachProductUrl,model);
-            const result = res.data;
-            if (result.success === true) {
-                localStorage.access_token = result.data.access_token;
-            }
+            console.log(result);
             return result;
         } catch (error) {
             return {

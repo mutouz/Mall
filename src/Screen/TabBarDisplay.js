@@ -33,7 +33,7 @@ export default class TabBarDisplay extends Component {
      <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
         <TabBar>
             <TabBar.Item
-            title="首页"//图标下的标签
+            title="商城"//图标下的标签
             key="MagesHome"//唯一标识
             badge={'new'}//图标上角
             icon={<div style={{//图片默认状态
@@ -62,7 +62,7 @@ export default class TabBarDisplay extends Component {
             </TabBar.Item>
              <TabBar.Item
              badge={'new'}
-            title="朋友圈"
+            title="购物车"
             key="FllowHome"//唯一标识
             icon={<div style={{//图片默认状态
               width: '22px',
@@ -90,7 +90,7 @@ export default class TabBarDisplay extends Component {
             </TabBar.Item>
             <TabBar.Item
             badge={'new'}
-            title="个人信息设置"
+            title="个人信息"
             key="Select"//唯一标识
             icon={<div style={{//图片默认状态
               width: '22px',

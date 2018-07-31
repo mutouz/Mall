@@ -15,7 +15,7 @@ import {
 // import MagesData from '../DataServer/MagesData'
 // import UserData from '../DataServer/UserData'
 // import FollowData from '../DataServer/FollowData'
-import userManager from '../DataServer/UserManager';
+import OrderData from '../DataServer/OrderData';
 import { district, provinceLite } from 'antd-mobile-demo-data';
 const CustomChildren = props => (
     <div
@@ -105,7 +105,7 @@ export default class AddShoppingAddress extends Component {
             <Button
                 type={'primary'}
                 onClick={async()=>{
-                    const result=await userManager.addShoppingAddress(this.state.Address,this.state.pickerValue,this.state.Recipient,this.state.Phone);
+                    const result=await OrderData.addShoppingAddress(this.state.Address,this.state.pickerValue,this.state.Recipient,this.state.Phone);
                     console.log(result);
                     if(result.success === false){
                         Toast.fail(result.errorMessage);
