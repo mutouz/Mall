@@ -1,10 +1,20 @@
-import { Carousel, WingBlank,Card,WhiteSpace,List,Button } from 'antd-mobile';
 import React, { Component } from 'react'
+import {
+  Carousel, 
+  WingBlank,
+  Card,
+  WhiteSpace,
+  List,
+  Button } from 'antd-mobile';
+import moment from 'moment';
+import {
+  SeachProductUrl
+} from '../DataServer/UrlConfig'
 const Item = List.Item;
 const Brief = Item.Brief;
 export default class ProductDetailsItem extends Component {
   state = {
-    data: [],
+    data: [1,2,3],
     imgHeight: 176,
   }
   async componentDidMount() {
@@ -16,6 +26,11 @@ export default class ProductDetailsItem extends Component {
         
     //   });
     // }, 100);
+    setTimeout(() => {
+      this.setState({
+        data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
+      });
+    }, 100);
   }
   render() {
     return (
@@ -47,29 +62,18 @@ export default class ProductDetailsItem extends Component {
             </a>
           ))}
         </Carousel>
-        <Card>
-        <Card.Header
-            title={this.props.ProductName}
-            extra={this.props.Price}                     
-        />
-        </Card>
+                   
         <WhiteSpace/>
-        <List>       
+        {/* <List>       
         <Item arrow="horizontal" onClick={() => {}}>领劵</Item>
         <Item arrow="horizontal" onClick={() => {}}>服务 7天无理由,运费险,公益宝贝</Item>
-      </List>
+        </List>
       <WhiteSpace/>
       <List>
         <Item arrow="horizontal" onClick={() => {}}>规格 选取 尺码,颜色分类</Item>
         <Item arrow="horizontal" onClick={() => {}}>参数</Item>
-      </List>
-      <Button type="primary"
-        style={{marginTop:'180px',width:'100px',flexDirection: 'row'}}
-      >加入购物车</Button>
-      <WhiteSpace/>
-      <Button type="primary"
-        style={{marginTop:'0px',width:'100px'}}
-      >立即购买</Button>
+      </List> */}
+      
       </WingBlank>
       </div>
     );
