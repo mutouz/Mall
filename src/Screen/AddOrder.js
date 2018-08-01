@@ -16,50 +16,59 @@ import React, { Component } from 'react'
     } from 'antd-mobile'
     //导入要用的
     import OrderData from '../DataServer/OrderData'
-
+    import UserManager from '../DataServer/UserManager'
     import { imgUrl } from '../DataServer/UrlConfig'
     import ShoppingOrderItem from '../ViewComponent/ShoppingOrderItem'
     // import FllowItem from '../ViewComponent/FollwItem'
     export default class AddOrder extends Component {
 
 
-        async  componentWillMount() {
+        async  componentDidMount() {
             // console.log(UserData.ifToken());
             // if (!UserData.ifToken()) {
             //     this.props.history.replace('/');
             // }
-            //1.将传过来的参数变成数值
-            // const shoppingAddressRest=
-            // const shoppingAddress=
-          //  const count
+         
 
 //序列化
-        //   const json = this.props.match.params.ids;
-
-        //   const ids = JSON.paser(json);
-
+            const json = this.props.match.params.goods;
+            const good = JSON.parse(json);
+            const goods=this.state.goods;
+            goods.push(good);
+            console.log(goods)
+            this.setState({goods});
+            console.log(this.state.goods)
+        //   const id = this.props.match.params.ID;
+        //   console.log(id)
+        //   const count=this.props.match.params.count;
+        //   console.log(count)
+        //   const ids = JSON.parse(id);
+        //   const counts=JSON.parse(count);
+        //   this.setState({ids,count:counts})
 //序列化
-            let count=[12,14,56]
+           
 
             ///////////////////////////////得到购买的id
-            let result = await OrderData.SeachProducs([100,101,102]);
-          
-            //动态给result付数量
-            for(let i=0;i<count.length;i++){
-                result.data[i].count=count[i];
-            }
+           // let result = await OrderData.SeachProducs(this.state.ids);
+            // if (this.state.count!=null) {
+            //     //动态给result付数量
+            //     for(let i=0;i<this.state.count.length;i++){
+            //         result.data[i].count=this.state.count[i];
+            //     }
+            //  }
+           
             /////////////////////////////////
             //得到count
            // const count=12//this.props.match.params.count
-           console.log(result)
-            if (!result.success) {
-                Toast.fail(result.errorMessage);
-                return;
-            }
+        //    console.log(result)
+        //     if (!result.success) {
+        //         Toast.fail(result.errorMessage);
+        //         return;
+        //     }
             //给列表赋值
             this.setState((preState) => {
                 return {
-                    dataSource: preState.dataSource.cloneWithRows(result.data)
+                    dataSource: preState.dataSource.cloneWithRows(this.state.goods)
                 }
             })
         }
@@ -74,38 +83,37 @@ import React, { Component } from 'react'
                
                 shoppingAddress:'',
                 dataSource,
-               // val:1,
                 refreshing: false,
-                ids: []
+                goods:[],
             }
         }
     
-        //下拉刷新
-        onRefresh = async () => {
-            try {
-                this.setState({ refreshing: true });
-                ////////////////////////////////////
-                const result = await OrderData.SeachProducs([44,45]);
-                //////////////////////////////////////////
-                this.setState({ refreshing: false });
-                if (result.success === false) {
-                    Toast.fail(result.errorMessage);
-                    if (result.errorCode === 10004) {
-                        this.props.history.replace('/');
-                    }
-                    return;
-                }
-                this.setState((preState) => {
-                    return {
-                        dataSource: preState.dataSource.cloneWithRows(result.data),
-                        refreshing: false
-                    }
-                })
-            } catch (error) {
-                Toast.fail(`${error}`);
-                this.setState({ refreshing: false });
-            }
-        }
+        // //下拉刷新
+        // onRefresh = async () => {
+        //     try {
+        //         this.setState({ refreshing: true });
+        //         ////////////////////////////////////
+        //         const result = await OrderData.SeachProducs(this.state.ids);
+        //         //////////////////////////////////////////
+        //         this.setState({ refreshing: false });
+        //         if (result.success === false) {
+        //             Toast.fail(result.errorMessage);
+        //             if (result.errorCode === 10004) {
+        //                 this.props.history.replace('/');
+        //             }
+        //             return;
+        //         }
+        //         this.setState((preState) => {
+        //             return {
+        //                 dataSource: preState.dataSource.cloneWithRows(result.data),
+        //                 refreshing: false
+        //             }
+        //         })
+        //     } catch (error) {
+        //         Toast.fail(`${error}`);
+        //         this.setState({ refreshing: false });
+        //     }
+        // }
         
         render() {
             return (
@@ -120,12 +128,12 @@ import React, { Component } from 'react'
                 <ListView
             useBodyScroll={true}
             dataSource={this.state.dataSource}
-            pullToRefresh={
-                <PullToRefresh
-                    refreshing={this.state.refreshing}
-                    onRefresh={this.onRefresh}
-                />
-            }
+            // pullToRefresh={
+            //     // <PullToRefresh
+            //     //     refreshing={this.state.refreshing}
+            //     //     onRefresh={this.onRefresh}
+            //     // />
+            // }
             renderRow={(prouct) => {
                 console.log(prouct)
                 return (
@@ -140,12 +148,18 @@ import React, { Component } from 'react'
                 <Button
                     type="primary"
                     onClick={async () => {
-                        
-                        const rsult = await OrderData.AddOrderUrl(this.state.ShippingAddressID, this.state.ProductInformations);
+                        //得到需要的数据
+                        const  result=await UserManager.SearchShippingAddress();
+                        const ShippingAddressID=result.data.ID;
+                        const ProductInformations={}
+                        //对商品下单
+                        const rsult = await OrderData.AddOrderUrl(ShippingAddressID, ProductInformations);
                         if (!rsult.success) {
                             Toast.fail(rsult.errorMessage);
                             return;
                         }
+                        //下单
+
                         //跳转后按箭头无法返回
                         //this.props.history.replace('/TabBarDisplay');
                         //console.log(localStorage.access_token);

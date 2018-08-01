@@ -68,7 +68,7 @@ export default class RegisterScreen extends Component {
                         return;
                     }
                     //注册完成跳转到首页
-                    this.props.history.push('/GetUserScreen');
+                    this.props.history.push('/TabBarDisplay');
                     
                 }}
             >

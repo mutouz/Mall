@@ -23,9 +23,10 @@ const AddCardUrl=http+pore+'/api/ShoppingCart/AddCard'; //添加购物车信息
 const DeleteCardUrl=http+pore+'/api/ShoppingCart/DeleteCard'; //取消购物车
 const SeachCardUrl=http+pore+'/api/ShoppingCart/SeachCard'; //返回购物车
 const SeachProducsUrl=http+pore+'/api/CommodityType/SeachProducs'; //根据id集合查询商品信息
-
+const DeleteCardsUrl=http+pore+'/api/ShoppingCart/DeleteCards';//清空购物车
 
 export {
+    DeleteCardsUrl,
     registerUrl,
     imgUrl,
     loginUrl,

@@ -1,19 +1,56 @@
 import React, { Component } from 'react'
 import {
     AddOrderUrl,
-    SeachProducsUrl
+    SeachProducsUrl,
+    SearchOrderUrl
 } from './UrlConfig'
 import axios from 'axios';
 class OrderData {
+    //查询订单
+    async SearchOrder(){
+        try {
+            const res = await fetch(SearchOrderUrl, {
+                method: 'get',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'token':localStorage.token,//token,
+                    'uid':localStorage.uid//uid
+                },
+               
+            });
+            const result = res.json();
+          
+            if (result.success === true) {
+                localStorage.access_token = result.data.token;
+            }
+            return result;
+        } catch (error) {
+            return {
+                success:false,
+                errorMessage:'网络错误'
+            }
+        }
+    }
     //下单
     async AddOrderUrl(ShippingAddressID, ProductInformations) {
         try {
             const orderInformation= {ShippingAddressID,ProductInformations}
             console.log(orderInformation)
-            const res = await axios.post(AddOrderUrl,
-                orderInformation
-            );
-            const result = res.data;
+            
+         
+            const res = await fetch(AddOrderUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'token':localStorage.access_token,//token,
+                    'uid':localStorage.uid//uid
+                },
+                body: JSON.stringify(orderInformation)
+            });
+            const result = res.json();
+          
             if (result.success === true) {
                 localStorage.access_token = result.data.access_token;
             }
@@ -37,8 +74,8 @@ class OrderData {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'token':'b716f3a82315979570f90472bd80eb2d',//token,
-                    'uid':212//uid
+                    'token':localStorage.token,//token,
+                    'uid':localStorage.uid//uid
                 },
                 body: JSON.stringify(CardDel)
             });

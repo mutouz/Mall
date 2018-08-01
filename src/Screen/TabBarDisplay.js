@@ -7,9 +7,10 @@ import {
     TabBar 
   } from 'antd-mobile';
   
-  import MagesHome from './MagesHome';
-  import FllowHome from './FllowHome';
-  import CustomerHome from './CustomerHome';
+  import GetUserScreen from './GetUserScreen';
+   import SearchProductScreen from './SearchProductScreen';
+  import ShopingCardHome from './ShopingCardHome';
+  import OrderHomeScreen from './OrderHomeScreen';
   
 
 export default class TabBarDisplay extends Component {
@@ -17,7 +18,7 @@ export default class TabBarDisplay extends Component {
       super(props)
     
       this.state = {
-         selected:'MagesHome'
+         selected:'SearchProductScreen'
       }
     }
     componentWillMount(){//页面加载时执行
@@ -34,8 +35,8 @@ export default class TabBarDisplay extends Component {
         <TabBar>
             <TabBar.Item
             title="商城"//图标下的标签
-            key="MagesHome"//唯一标识
-            badge={'new'}//图标上角
+            key="SearchProductScreen"//唯一标识
+           // badge={'new'}//图标上角
             icon={<div style={{//图片默认状态
               width: '22px',
               height: '22px',
@@ -48,22 +49,22 @@ export default class TabBarDisplay extends Component {
               background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}
             />
             }
-            selected={this.state.selected === 'MagesHome'}//是否被选中bool类型
+            selected={this.state.selected === 'SearchProductScreen'}//是否被选中bool类型
           
             onPress={() => {//点击用户登记
               this.setState({
-                selected: 'MagesHome',
+                selected: 'SearchProductScreen',
               });
-              localStorage.selected = 'MagesHome'
+              localStorage.selected = 'SearchProductScreen'
             }}
             >
             {/* 显示页面 */}
-            <MagesHome {...this.props}/>
+            <SearchProductScreen {...this.props}/>
             </TabBar.Item>
              <TabBar.Item
-             badge={'new'}
+            // badge={'new'}
             title="购物车"
-            key="FllowHome"//唯一标识
+            key="ShopingCardHome"//唯一标识
             icon={<div style={{//图片默认状态
               width: '22px',
               height: '22px',
@@ -76,20 +77,48 @@ export default class TabBarDisplay extends Component {
               background: 'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  21px 21px no-repeat' }}
              />
             }
-            selected={this.state.selected === 'FllowHome'}
+            selected={this.state.selected === 'ShopingCardHome'}
           
             onPress={() => {//点击用户登记
               this.setState({
-                selected: 'FllowHome',
+                selected: 'ShopingCardHome',
               });
-              localStorage.selected = 'FllowHome'
+              localStorage.selected = 'ShopingCardHome'
             }}
             >
             {/* 显示页面 */}
-            <FllowHome {...this.props}/>
+            <ShopingCardHome {...this.props}/>
             </TabBar.Item>
             <TabBar.Item
-            badge={'new'}
+           // badge={'new'}
+            title="订单详情"
+            key="Select"//唯一标识
+            icon={<div style={{//图片默认状态
+              width: '22px',
+              height: '22px',
+              background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat' }}
+              />
+            }
+            selectedIcon={<div style={{//选中图片改变状态
+              width: '22px',
+              height: '22px',
+              background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}
+            />
+            }
+            selected={this.state.selected === 'OrderHomeScreen'}//判断是否被选中
+          
+            onPress={() => {//点击用信息查询
+              this.setState({
+                selected: 'OrderHomeScreen',
+              });
+              localStorage.selected = 'OrderHomeScreen'
+            }}
+            >
+            {/* 显示页面 */}
+            <OrderHomeScreen {...this.props}/>
+            </TabBar.Item>
+            <TabBar.Item
+           // badge={'new'}
             title="个人信息"
             key="Select"//唯一标识
             icon={<div style={{//图片默认状态
@@ -104,19 +133,19 @@ export default class TabBarDisplay extends Component {
               background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}
             />
             }
-            selected={this.state.selected === 'CustomerHome'}//判断是否被选中
+            selected={this.state.selected === 'GetUserScreen'}//判断是否被选中
           
             onPress={() => {//点击用信息查询
               this.setState({
-                selected: 'CustomerHome',
+                selected: 'GetUserScreen',
               });
-              localStorage.selected = 'CustomerHome'
+              localStorage.selected = 'GetUserScreen'
             }}
             >
             {/* 显示页面 */}
-            <CustomerHome {...this.props}/>
+            <GetUserScreen {...this.props}/>
             </TabBar.Item>
-          
+           
         </TabBar>
      </div>
     )

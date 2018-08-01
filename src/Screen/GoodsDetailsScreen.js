@@ -1,40 +1,24 @@
 import React, { Component } from 'react'
-import {
-    Button,
-    View,
-    ListView,
-    WhiteSpace,
-    NavBar,
-    WingBlank,
-    InputItem,
-    Toast,
-    SearchBar,
-    PullToRefresh,
-    Icon,
-    Carousel, 
-    Card,
-    List,
-    Stepper,//计步器引用
-
-} from 'antd-mobile'
+import Result, { Button, View, ListView, WhiteSpace, NavBar, WingBlank, InputItem, Toast, SearchBar, PullToRefresh, Icon, Carousel, Card, List, Stepper, } from 'antd-mobile'
 import ProductDetailsItem from '../ViewComponent/ProductDetailsItem'
 import SearchProductManager from '../DataServer/SearchProductManager'
+// import SearchProductManager from '../DataServer/SearchProductManager'
+import ShoppingCardData from '../DataServer/ShoppingCardData'
 export default class GoodsDetailsScreen extends Component {
   async componentWillMount(){
     const result=await SearchProductManager.SearchProductMessage(this.props.match.params.ID)
-   
+
   
     console.log(result.data)
     if(!result.success){
       Toast.fail(result.errorMessage);
       return;
     }
-    const dat=result.data;
+
     this.setState({
-        data:dat
+        goodsDetail:result.data
     
     })
-    console.log( this.state.data)
     //给列表赋值
     // this.setState((preState)=>{
     //   return{
@@ -80,11 +64,10 @@ onRefresh =async()=>{
 }
 constructor(props) {
     super(props)
-  
     this.state = {
        data:{},
        val:1,//记录计步器的值
-       ids:[],
+       goodsDetail:{}
     }
   }
   render() {
@@ -104,8 +87,8 @@ constructor(props) {
         />        
         <Card>
         <Card.Header
-            title={this.state.data.ProductName}
-            extra={this.state.data.Price}                     
+            title={this.state.goodsDetail.ProductName}
+            extra={this.state.goodsDetail.Price}                     
         />
         </Card>
         <WhiteSpace/>
@@ -130,13 +113,20 @@ constructor(props) {
                 inline size="25px" 
                 style={{ marginRight: '4px',marginTop:'240px' }}
                 onClick={async()=>{
-                    const ids = this.state.ids;
-                    const count=this.state.val;
-                    console.log(count)
-                    const ids_json = JSON.stringify(ids);
-                    //console.log(ids_json)
-                    const count_json = JSON.stringify(count);
-                    this.props.history.push('/xxx/'+ids_json/count_json);
+                    //货品加入购物车调取加入购物车方法
+                    const result=await ShoppingCardData.AddCard(this.state.goodsDetail.ID,this.state.val) ;
+                     console.log(result);
+                     if(result.success==true){
+                        this.props.history.push('/ShopingCardHome')
+                     }
+                    // const shangpin = {
+                    //         good:this.state.goodsDetail,
+                    //         count:this.state.val
+                    // };
+
+                    // const json = JSON.stringify(shangpin);
+
+                   // this.props.history.push('/ShopingCardHome/'+json)
                 }}
             >
                 加入购物车
@@ -146,14 +136,18 @@ constructor(props) {
                 inline size="25px" 
                 style={{ marginRight: '4px',marginTop:'240px' }}
                 onClick={async()=>{
-                    //let number=this.state.val
-                    const ids = this.state.ids;
-                    const count=this.state.val;
-                    console.log(count)
-                    const ids_json = JSON.stringify(ids);
-                    //console.log(ids_json)
-                    const count_json = JSON.stringify(count);
-                    this.props.history.push('/xxx/'+ids_json/count_json);
+
+                    const goods = [
+                        {
+                            good:this.state.goodsDetail,
+                            count:this.state.val
+                        }
+                    ];
+
+                    const json = JSON.stringify(goods);
+
+
+                    this.props.history.push('/AddOrder/'+json);
                 }}
             >
                 立即购买

@@ -26,10 +26,10 @@ export default class ShoppingCardItem extends Component {
         }
     }
     render() {
-       
+        console.log(this.props[0]);
         //将图片用逗号连接的字符串转换为数组
-        const imgFils = this.props.ProductThumbnail.split(',')
-        console.log(imgFils);
+        const imgFils = this.props[0].good.ProductThumbnail.split(',')
+      
         //images将图片全部遍历存储
         const images = imgFils.map((image) => {
             console.log(imgUrl + image)
@@ -42,18 +42,18 @@ export default class ShoppingCardItem extends Component {
             <WhiteSpace />
             <Card.Header
                 title={"收货地址"}
-                extra={this.props.ShopingArea}
+                extra={this.props[0].good.ShopingArea}
             />
             <Card>
                 <Card.Header
                     // title={this.props.ID}
-                    thumb={this.props.ProductThumbnail}
-                    extra={`数量:${this.props.count}`}
+                    thumb={this.props[0].good.ProductThumbnail}
+                    extra={`数量:${this.props[0].count}`}
                 />
                 <Card.Body>
-                    <div>{this.props.ProductName}</div>
+                    <div>{this.props[0].good.ProductName}</div>
                 </Card.Body>
-                <Card.Footer content={<div>总价</div>} extra={`￥:${this.props.Price*this.props.count}元`} />
+                <Card.Footer content={<div>总价</div>} extra={`￥:${this.props[0].good.Price*this.props[0].count}元`} />
             </Card>
             <WhiteSpace />
             <WhiteSpace />

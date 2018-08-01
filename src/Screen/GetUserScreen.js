@@ -20,10 +20,11 @@ import userManager from '../DataServer/UserManager';
 export default class MyInfoScreen extends Component {
 
     async componentDidMount(){
-        // console.log(userManager.ifToken());
-        // if (!UserData.ifToken()) {
-        //     this.props.history.replace('/');
-        // }
+        console.log(userManager.ifToken());
+        if (!userManager.ifToken()) {
+            //this.props.history.replace('/LoginScreen');
+            return
+        }
     const result=await userManager.getUser();
     console.log(result);
     if(result.success===false){
@@ -59,6 +60,17 @@ export default class MyInfoScreen extends Component {
     
 
   render() {
+
+    if (!userManager.ifToken()) {
+        //this.props.history.replace('/LoginScreen');
+        return(
+            <div   onClick={()=>{
+                this.props.history.replace('/LoginScreen')
+            }}>
+                点击登陆
+            </div>    
+        )
+    }
 
     return (
       <div>

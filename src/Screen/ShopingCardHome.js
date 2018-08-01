@@ -12,16 +12,21 @@ import {
     PullToRefresh
 } from 'antd-mobile'
 //导入要用的
+import UserManager from '../DataServer/UserManager'
+
 import ShoppingCardData from '../DataServer/ShoppingCardData'
 import { imgUrl } from '../DataServer/UrlConfig'
 import ShoppingCardItem from '../ViewComponent/ShoppingCardItem'
 // import FllowItem from '../ViewComponent/FollwItem'
 export default class ShopingCardHome extends Component {
     async  componentWillMount() {
-        // console.log(UserData.ifToken());
-        // if (!UserData.ifToken()) {
-        //     this.props.history.replace('/');
-        // }
+        console.log(UserManager.ifToken());
+        if (!UserManager.ifToken()) {
+            //Toast.fail('请登录');
+            //this.props.history.replace('/LoginScreen');
+
+            return;
+        }
         const result = await ShoppingCardData.SeachCard();
         if (!result.success) {
             Toast.fail(result.errorMessage);
@@ -113,7 +118,48 @@ export default class ShopingCardHome extends Component {
 
 
     }
+      //清空购物车
+      onDels = async () => {
+        try {
+            Toast.loading('操作中', 0);
+            const result = await ShoppingCardData.DeleteCards( );
+           
+            console.log(result)
+            if (result.success == false) {
+                Toast.fail(result.errorMessage);
+               
+                console.log(this.state.result)
+                return;
+            }
+            const result1 = await ShoppingCardData.SeachCard();
+            this.setState((preState) => {
+                return {
+                    dataSource: preState.dataSource.cloneWithRows(result1.data),
+                    refreshing: false
+                }
+            },()=>{
+                Toast.hide(); 
+            })
+        } catch (error) {
+            Toast.fail(`${error}`);
+            this.setState({ refreshing: false });
+        }
+
+
+    }
     render() {
+        //未登陆点击登陆
+    if (!UserManager.ifToken()) {
+        //this.props.history.replace('/LoginScreen');
+        return(
+            <div   onClick={()=>{
+                this.props.history.replace('/LoginScreen')
+            }}>
+                点击登陆
+            </div>    
+        )
+    }
+
         return (
             <div>
                 <NavBar
@@ -151,6 +197,7 @@ export default class ShopingCardHome extends Component {
             }}
           />
            <WhiteSpace/>
+           <WingBlank>
            <Button
                 type={'primary'}
                 onClick={this.onDel}
@@ -160,17 +207,7 @@ export default class ShopingCardHome extends Component {
             <WhiteSpace/>
             <Button
                 type={'primary'}
-                onClick={async()=>{
-                    
-                //  //   const result = await ;
-                //     console.log(result);
-                //     if(result.success === false){
-                //         Toast.fail(result.errorMessage);
-                //         return;
-                //     }
-                  
-                    
-                }}
+                onClick={this.onDels}
             >
                 清空购物车
             </Button>
@@ -191,6 +228,7 @@ export default class ShopingCardHome extends Component {
             >
                 下单
             </Button>
+            </WingBlank>
             </div>
         )
     }

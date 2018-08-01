@@ -65,7 +65,7 @@ export default class LoginScreen extends Component {
                         return;
                     }
                     //跳转后按箭头无法返回
-                    this.props.history.replace('/GetUserScreen');
+                    this.props.history.replace('/TabBarDisplay');
                    //console.log(localStorage.access_token);
                 }}
                 >

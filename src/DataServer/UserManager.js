@@ -69,6 +69,7 @@ class UserManager {
     //取消denglu
     tokenOut() {
         localStorage.token = "";
+        localStorage.uid = "";
     }
     //判断是否登陆
     ifToken() {
@@ -100,7 +101,7 @@ class UserManager {
         }
     }
 
-    async SearchShippingAddress(userId){
+    async SearchShippingAddress(){
         try {
             const res=await fetch(SearchShippingAddressUrl,{
               
