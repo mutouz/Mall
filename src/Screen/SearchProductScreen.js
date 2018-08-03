@@ -16,6 +16,7 @@ import SearchProductManager from '../DataServer/SearchProductManager'
 import ProductMessageItem from '../ViewComponent/ProductMessageItem'
 export default class SearchProductScreen extends Component {
     async componentWillMount(){
+       
         const result=await SearchProductManager.SearchProductByCTName();
         console.log(result);
         if(!result.success){
@@ -28,7 +29,30 @@ export default class SearchProductScreen extends Component {
                 dataSource:preState.dataSource.cloneWithRows(result.data)
             }
         })
+        console.log(this.props.match.params.Name)
+        if (this.props.match.params.Name!=null) {
+            console.log(this.props.match.params.Name)
+            this.setState({
+                isSearchData:true,
+            })
+            Toast.loading('查询中，请稍后',0);
+            const result = await SearchProductManager.SearchProductByCTName (this.props.match.params.Name);
+            console.log(result.data)
+            Toast.hide();
+            if (result.success==false) {
+                Toast.fail(result.errorMessage,1)
+                return;
+            }
+             //给列表赋值
+             this.setState((preState) => {
+                return {
+                    dataSource: preState.dataSource.cloneWithRows(result.data)
+                }
+            })
+    
+        }
     }
+    
     constructor(props) {
         super(props)
         //付初始值
@@ -111,6 +135,7 @@ export default class SearchProductScreen extends Component {
           </NavBar>
           <SearchBar
             value={this.state.Name}
+            focus={true}
             placeholder="请输入你想找的好东西"
             onSubmit={this.onSearchProduct}//查询出商品信息并显示在页面上
             onCancel={this.onCancel}

@@ -8,7 +8,7 @@ import {
   } from 'antd-mobile';
   
   import GetUserScreen from './GetUserScreen';
-   import SearchProductScreen from './SearchProductScreen';
+  import HomeScreen from './HomeScreen';
   import ShopingCardHome from './ShopingCardHome';
   import OrderHomeScreen from './OrderHomeScreen';
   
@@ -18,7 +18,7 @@ export default class TabBarDisplay extends Component {
       super(props)
     
       this.state = {
-         selected:'SearchProductScreen'
+         selected:'HomeScreen'
       }
     }
     componentWillMount(){//页面加载时执行
@@ -35,7 +35,7 @@ export default class TabBarDisplay extends Component {
         <TabBar>
             <TabBar.Item
             title="商城"//图标下的标签
-            key="SearchProductScreen"//唯一标识
+            key="HomeScreen"//唯一标识
            // badge={'new'}//图标上角
             icon={<div style={{//图片默认状态
               width: '22px',
@@ -49,17 +49,17 @@ export default class TabBarDisplay extends Component {
               background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}
             />
             }
-            selected={this.state.selected === 'SearchProductScreen'}//是否被选中bool类型
+            selected={this.state.selected === 'HomeScreen'}//是否被选中bool类型
           
             onPress={() => {//点击用户登记
               this.setState({
-                selected: 'SearchProductScreen',
+                selected: 'HomeScreen',
               });
-              localStorage.selected = 'SearchProductScreen'
+              localStorage.selected = 'HomeScreen'
             }}
             >
             {/* 显示页面 */}
-            <SearchProductScreen {...this.props}/>
+            <HomeScreen {...this.props}/>
             </TabBar.Item>
              <TabBar.Item
             // badge={'new'}

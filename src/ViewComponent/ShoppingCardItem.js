@@ -24,21 +24,27 @@ export default class ShoppingCardItem extends Component {
             checked:true
         }
     }
-  render() {
+   render() {
     const CheckboxItem = Checkbox.CheckboxItem;
     //将图片用逗号连接的字符串转换为数组
-    const imgFils=this.props.Product.ProductThumbnail.split(',')
-    console.log(imgFils);
-    //images将图片全部遍历存储
-    const images=imgFils.map((image)=>{
-        console.log(imgUrl+image)
-        return{
-            icon:imgUrl+image
-        }
-       
-    })
+    let imgFils="";
+    let images="";
+    if (this.props.Product.ProductThumbnail!=null) {
+      imgFils=this.props.Product.ProductThumbnail.split(',')
+        console.log(imgFils);
+        //images将图片全部遍历存储
+         images=imgFils.map((image)=>{
+            console.log(imgUrl+image)
+            return{
+                icon:imgUrl+image
+            }
+           
+        })
+    }
+   
     return (
-        
+       
+       
             <WingBlank>
                 <WhiteSpace/>
                

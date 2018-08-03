@@ -9,7 +9,11 @@ export default class GoodsDetailsScreen extends Component {
     const result=await SearchProductManager.SearchProductMessage(this.props.match.params.ID)
 
   
-    console.log(result.data)
+    let imgFils="";
+    if (result.data.ProductThumbnail!=null||result.data.ProductThumbnail!="") {
+      imgFils=result.data.ProductThumbnail.split(',')
+      console.log(imgFils)
+    }
     if(!result.success){
       Toast.fail(result.errorMessage);
       return;
@@ -19,6 +23,12 @@ export default class GoodsDetailsScreen extends Component {
         goodsDetail:result.data
     
     })
+        setTimeout(() => {
+          this.setState({
+            dataImg:imgFils,
+          });
+        }, 100);
+
     //给列表赋值
     // this.setState((preState)=>{
     //   return{
@@ -67,7 +77,9 @@ constructor(props) {
     this.state = {
        data:{},
        val:1,//记录计步器的值
-       goodsDetail:{}
+       goodsDetail:{},
+       dataImg: [1,2,3],
+       imgHeight: 176,
     }
   }
   render() {
@@ -83,8 +95,41 @@ constructor(props) {
       ]}
       >
       </NavBar>                         
-        <ProductDetailsItem                    
-        />        
+        
+
+        <WingBlank>
+        <WhiteSpace/>
+        <Carousel
+          autoplay={false}
+          infinite
+          beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+          afterChange={index => console.log('slide to', index)}
+        >
+          {this.state.dataImg.map(val => (
+            <a
+              key={val}
+              href="http://www.alipay.com"
+              style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+            >
+              <img
+                src={val}
+                alt=""
+                style={{ width: '100%', verticalAlign: 'top' }}
+                onLoad={() => {
+                  // fire window resize event to change height
+                  window.dispatchEvent(new Event('resize'));
+                  this.setState({ imgHeight: 'auto' });
+                }}
+              />
+            </a>
+          ))}
+        </Carousel>
+                   
+        <WhiteSpace/>
+      
+      </WingBlank>
+
+
         <Card>
         <Card.Header
             title={this.state.goodsDetail.ProductName}

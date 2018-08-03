@@ -18,14 +18,6 @@ export default class ProductDetailsItem extends Component {
     imgHeight: 176,
   }
   async componentDidMount() {
-    // simulate img loading
-    // const resultImg=await SowingMapManager.sowingMap();
-    // setTimeout(() => {
-    //   this.setState({
-    //     data:[resultImg.data[0],resultImg.data[1],resultImg.data[2]],
-        
-    //   });
-    // }, 100);
     setTimeout(() => {
       this.setState({
         data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
@@ -50,8 +42,8 @@ export default class ProductDetailsItem extends Component {
               style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
             >
               <img
-                src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
-                alt=""
+                src={''}
+                alt={this.props.state.data}
                 style={{ width: '100%', verticalAlign: 'top' }}
                 onLoad={() => {
                   // fire window resize event to change height
@@ -64,15 +56,6 @@ export default class ProductDetailsItem extends Component {
         </Carousel>
                    
         <WhiteSpace/>
-        {/* <List>       
-        <Item arrow="horizontal" onClick={() => {}}>领劵</Item>
-        <Item arrow="horizontal" onClick={() => {}}>服务 7天无理由,运费险,公益宝贝</Item>
-        </List>
-      <WhiteSpace/>
-      <List>
-        <Item arrow="horizontal" onClick={() => {}}>规格 选取 尺码,颜色分类</Item>
-        <Item arrow="horizontal" onClick={() => {}}>参数</Item>
-      </List> */}
       
       </WingBlank>
       </div>

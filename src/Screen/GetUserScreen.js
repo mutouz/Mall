@@ -92,7 +92,6 @@ export default class MyInfoScreen extends Component {
         
         <List>
         <ImagePicker
-                  
                   files={[{url:imgUrl+this.state.Avatar}]}
                   onChange={(Avatar)=>{this.setState({Avatar})}}
                   selectable={this.state.Avatar.length <= 1}

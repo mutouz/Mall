@@ -12,7 +12,18 @@ import {
 
 import axios from 'axios';
 
+let address = null;
+
 class UserManager {
+
+    setAddr(addr){
+        address=addr;
+    }
+
+    getAddr(){
+        return address;
+    }
+
     async register(Phone, Password) {
         try {
             const user = { Phone, Password }
@@ -73,9 +84,10 @@ class UserManager {
     }
     //判断是否登陆
     ifToken() {
-        if (localStorage.token == "") {
+        if (localStorage.token == ""||localStorage.token == null) {
             return false;
         }
+        console.log(localStorage.token)
         return true;
     }
     //得到个人信息

@@ -1,0 +1,11 @@
+.am-card {
+    flex-direction: inherit;
+
+}
+.am-card-header-content img {
+    margin-right: 5px;
+    width: 80px;
+}
+.am-card-header-content {
+    width: 100%;
+}

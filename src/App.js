@@ -16,6 +16,7 @@ import {
  import UpdateShoppingAddressScreen from './Screen/UpdateShoppingAddressScreen';
  import GetUserScreen from './Screen/GetUserScreen';
  import TabBarDisplay from './Screen/TabBarDisplay';//模板页
+ import BaoKaunScreen from './Screen/BaoKaunScreen';//爆款
 
 
  import ShoppingCardItem from './ViewComponent/ShoppingCardItem';
@@ -41,13 +42,14 @@ class App extends Component {
           <Route path={'/TabBarDisplay'} component={TabBarDisplay}/>
           <Route path={'/OrderHomeScreen'} component={OrderHomeScreen}/>
           <Route path={'/OrderItem'} component={OrderItem}/>
-         
+          <Route path={'/BaoKaunScreen'} component={BaoKaunScreen}/>
+          
           
           <Route path={'/ShopingCardHome'} component={ShopingCardHome}/>
           <Route path={'/GoodsDetailsScreen/:ID'} component={GoodsDetailsScreen} />
-          <Route path={'/SearchProductScreen'} component={SearchProductScreen} />
+          <Route path={'/SearchProductScreen/:Name'} component={SearchProductScreen} />
           <Route path={'/ShoppingCardItem'} component={ShoppingCardItem} />
-          <Route path={'/AddShoppingAddress'} component={ShoppingCardItem} />
+          <Route path={'/AddShoppingAddress'} component={AddShoppingAddress} />
           <Route path={'/AddOrder/:goods'} component={AddOrder} />
           <Route path={'/ShoppingOrderItem'} component={ShoppingOrderItem} />
         </div>

@@ -4,6 +4,9 @@ import {
     SeachProductUrl,
     ProductByCommodityTypeNameUrl,
     ProductByCommodityTypeUrl,
+    SearchSpecialSaleUrl,
+    SearchFirstScreenImagesUrl,
+    SearchDetonationModelUrl
 } from './UrlConfig'
 class SearchProductManager{
     //通过商品类别名称查询商品
@@ -87,6 +90,52 @@ class SearchProductManager{
             const result=await res.json();
             return result;
         } catch (error) {
+            return{
+                success:false,
+                errorMessage:'网络错误'
+            }
+        }
+    }
+   
+     
+     async SearchFirstScreenImages(){
+        try {
+            const res=await fetch(SearchFirstScreenImagesUrl);
+            
+            const result=await res.json();
+            return result;
+        } catch (error) {
+            console.log(error)
+            return{
+                success:false,
+                errorMessage:'网络错误'
+            }
+        }
+    }
+
+
+    async SearchSpecialSale(){
+        try {
+            const res=await fetch(SearchSpecialSaleUrl);
+            
+            const result=await res.json();
+            return result;
+        } catch (error) {
+            console.log(error)
+            return{
+                success:false,
+                errorMessage:'网络错误'
+            }
+        }
+    }
+    async SearchDetonationModel(){
+        try {
+            const res=await fetch(SearchDetonationModelUrl);
+            
+            const result=await res.json();
+            return result;
+        } catch (error) {
+            console.log(error)
             return{
                 success:false,
                 errorMessage:'网络错误'
