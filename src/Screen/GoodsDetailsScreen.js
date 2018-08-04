@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
-import Result, { Button, View, ListView, WhiteSpace, NavBar, WingBlank, InputItem, Toast, SearchBar, PullToRefresh, Icon, Carousel, Card, List, Stepper, } from 'antd-mobile'
+import Result, {Modal, Button, View, ListView, WhiteSpace, NavBar, WingBlank, InputItem, Toast, SearchBar, PullToRefresh, Icon, Carousel, Card, List, Stepper, } from 'antd-mobile'
 import ProductDetailsItem from '../ViewComponent/ProductDetailsItem'
 import SearchProductManager from '../DataServer/SearchProductManager'
 // import SearchProductManager from '../DataServer/SearchProductManager'
 import ShoppingCardData from '../DataServer/ShoppingCardData'
+import UserManager from '../DataServer/UserManager'
 export default class GoodsDetailsScreen extends Component {
   async componentWillMount(){
     const result=await SearchProductManager.SearchProductMessage(this.props.match.params.ID)
 
   
     let imgFils="";
-    if (result.data.ProductThumbnail!=null||result.data.ProductThumbnail!="") {
+    if (result.data.ProductThumbnail!=null&&result.data.ProductThumbnail!="") {
+        console.log(result.data.ProductThumbnail)
       imgFils=result.data.ProductThumbnail.split(',')
       console.log(imgFils)
     }
@@ -86,7 +88,7 @@ constructor(props) {
     return (
       <div>
       <NavBar
-        mode="dark"
+        mode="light"
         icon={<Icon type="left" />}
         onLeftClick={() => {this.props.history.goBack()}}
         rightContent={[
@@ -94,6 +96,7 @@ constructor(props) {
             <Icon key="1" type="ellipsis" />,
       ]}
       >
+      商品信息
       </NavBar>                         
         
 
@@ -158,6 +161,17 @@ constructor(props) {
                 inline size="25px" 
                 style={{ marginRight: '4px',marginTop:'240px' }}
                 onClick={async()=>{
+                    //未登陆提示登录
+                    if (!UserManager.ifToken()) {
+                        //Toast.fail('请登录');
+                        //this.props.history.replace('/LoginScreen');
+                        Modal.alert('请先登录','登录',[   
+                            { text: '不登录', onPress: () => console.log('cancel') },{
+                            text:'确认',
+                            onPress:()=>{ this.props.history.replace('/LoginScreen')}
+                        }])
+                        return;
+                    }
                     //货品加入购物车调取加入购物车方法
                     const result=await ShoppingCardData.AddCard(this.state.goodsDetail.ID,this.state.val) ;
                      console.log(result);
@@ -181,10 +195,20 @@ constructor(props) {
                 inline size="25px" 
                 style={{ marginRight: '4px',marginTop:'240px' }}
                 onClick={async()=>{
-
+                    if (!UserManager.ifToken()) {
+                        //Toast.fail('请登录');
+                        //this.props.history.replace('/LoginScreen');
+                       
+                        Modal.alert('请先登录','登录',[   
+                            { text: '不登录', onPress: () => console.log('cancel') },{
+                            text:'确认',
+                            onPress:()=>{ this.props.history.replace('/LoginScreen')}
+                        }])
+                        return;
+                    }
                     const goods = [
                         {
-                            good:this.state.goodsDetail,
+                            good:this.state.goodsDetail.ID,
                             count:this.state.val
                         }
                     ];

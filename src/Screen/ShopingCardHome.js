@@ -9,11 +9,12 @@ import {
     InputItem,
     Toast,
     SearchBar,
+    Icon,
     PullToRefresh
 } from 'antd-mobile'
 //导入要用的
 import UserManager from '../DataServer/UserManager'
-
+import SearchProductManager from '../DataServer/SearchProductManager'
 import ShoppingCardData from '../DataServer/ShoppingCardData'
 import { imgUrl } from '../DataServer/UrlConfig'
 import ShoppingCardItem from '../ViewComponent/ShoppingCardItem'
@@ -49,7 +50,8 @@ export default class ShopingCardHome extends Component {
         this.state = {
             dataSource,
             refreshing: false,
-            ids:[]
+            ids:[],
+            goods:[]//为了向下单业传递数据
         }
     }
     //下拉刷新
@@ -77,16 +79,39 @@ export default class ShopingCardHome extends Component {
         }
     }
      //单选框回调
-     onChange = (id,bol) => {
+     onChange = async (id,bol,count,pid) => {
       let ids=this.state.ids;
+      let goods=this.state.goods;
+      
       if (bol==false) {
         let leng=ids.indexOf(id)  
         ids.splice(leng,1) 
+        ////////////////删除goods
+        let del;
+        for (let i = 0; i < goods.length; i++) {
+           if (pid==goods[i].good.pid) {
+           
+           del=i
+           }
+            
+        }
+        goods.splice(del,1) 
+        ///////
       }
       else{
-        ids.push(id);
+      //  const result=await SearchProductManager.SearchProductMessage(pid);
+        ids.push(pid);
+      
+        const good={
+            pid,
+          //  good:result,
+            count
+        }
+        goods.push(good);
       }
       this.setState({ids});
+      this.setState({goods});
+      console.log(this.state.goods)
       console.log(this.state.ids);
       }
        //删除购物车
@@ -162,17 +187,13 @@ export default class ShopingCardHome extends Component {
 
         return (
             <div>
-                <NavBar
-                    mode="dark"
-                    leftContent={[
-                        <span
-                            key={1}
-                            onClick={() => {
-                                this.props.history.goBack();
-                            }}
-                        >
-                            后退
-                        </span>
+                 <NavBar
+                    mode="light"
+                    icon={<Icon type="left" />}
+                    onLeftClick={() => { this.props.history.goBack() }}
+                    rightContent={[
+
+                        <Icon key="1" type="ellipsis" />,
                     ]}
                 >
                     购物车
@@ -192,6 +213,7 @@ export default class ShopingCardHome extends Component {
                     <ShoppingCardItem
                     {...card}
                     onChange={this.onChange}
+                    onItemClick={(id)=>{this,this.props.history.push('/GoodsDetailsScreen/'+id)}}
                     />
                 )
             }}
@@ -223,7 +245,17 @@ export default class ShopingCardHome extends Component {
                     //     return;
                     // }
                     // this.props.history.replace('/InformationScreen');
-                    
+                    // const goods = [
+                    //     {
+                    //         good:this.state.goodsDetail,
+                    //         count:this.state.val
+                    //     }
+                    // ];
+
+                     const json = JSON.stringify(this.state.goods);
+
+
+                    this.props.history.push('/AddOrder/'+json);
                 }}
             >
                 下单

@@ -33,7 +33,7 @@ export default class RegisterScreen extends Component {
     return (
       <div>
         <NavBar
-            mode="dark"
+            mode="light"
             icon={<Icon type="left" />}
             onLeftClick={() => {this.props.history.goBack()}}
         >注册</NavBar>

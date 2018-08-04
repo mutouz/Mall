@@ -97,7 +97,7 @@ export default class OrderHomeScreen extends Component {
         return (
             <div>
                 <NavBar
-                    mode="dark"
+                    mode="light"
                     leftContent={[
                         <span
                             key={1}

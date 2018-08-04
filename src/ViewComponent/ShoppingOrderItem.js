@@ -27,16 +27,21 @@ export default class ShoppingCardItem extends Component {
     }
     render() {
         console.log(this.props[0]);
-        //将图片用逗号连接的字符串转换为数组
-        const imgFils = this.props[0].good.ProductThumbnail.split(',')
-      
-        //images将图片全部遍历存储
-        const images = imgFils.map((image) => {
-            console.log(imgUrl + image)
-            return {
-                icon: imgUrl + image
-            }
-        })
+       
+        let imgFils="";
+        let images="";
+        if (this.props[0].good.ProductThumbnail!=null&&!this.props[0].good.ProductThumbnail) {
+          imgFils=this.props[0].good.ProductThumbnail.split(',')
+            console.log(imgFils);
+            //images将图片全部遍历存储
+             images=imgFils.map((image)=>{
+                console.log(imgUrl+image)
+                return{
+                    icon:imgUrl+image
+                }
+               
+            })
+        }
         return (
             <div>
             <WhiteSpace />

@@ -24,13 +24,6 @@ import React, { Component } from 'react'
 
 
         async  componentDidMount() {
-            // console.log(UserData.ifToken());
-            // if (!UserData.ifToken()) {
-            //     this.props.history.replace('/');
-            // }
-         
-
-//序列化
             const json = this.props.match.params.goods;
             const good = JSON.parse(json);
             const goods=this.state.goods;
@@ -120,7 +113,7 @@ import React, { Component } from 'react'
                
             <div>
                 <NavBar
-                    mode="dark"
+                    mode="light"
                 >
                     确认下单
            </NavBar>

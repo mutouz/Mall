@@ -9,6 +9,7 @@ import {
     InputItem,
     Toast,
     SearchBar,
+    Icon,
     PullToRefresh,
 } from 'antd-mobile'
 
@@ -129,7 +130,10 @@ export default class SearchProductScreen extends Component {
     return (
       <div>
           <NavBar
-            mode="dark"
+            mode="light"
+            icon={<Icon type="left" />}
+            onLeftClick={() => { this.props.history.goBack() }}
+           
           >
             有家土特产
           </NavBar>

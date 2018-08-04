@@ -51,12 +51,12 @@ export default class ShoppingCardItem extends Component {
                  <CheckboxItem key={this.props.ID} onChange={()=>{
                      //动态构造是否被选中选中再外层动态改变数组
                     this.setState({checked:this.state. checked==true?false:true});
-                    this.props.onChange(this.props.ID,this.state.checked)}
+                    this.props.onChange(this.props.ID,this.state.checked,this.props.Count,this.props.Product.ID)}
                  } >
                  <div
                 onClick={()=>{//点击显示商品详情
-                    console.log(this.props.ID);
-                    this.props.onItemClick(this.props.ID);
+                    console.log(this.props.Product.ID);
+                    this.props.onItemClick(this.props.Product.ID);
                 }}
                 >
                 <Card>

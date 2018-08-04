@@ -6,6 +6,7 @@ import {
     WhiteSpace,
     NavBar,
     WingBlank,
+    Icon,
     InputItem,
     Toast
 } from 'antd-mobile'
@@ -28,8 +29,14 @@ export default class LoginScreen extends Component {
         <div>
             
             <NavBar
-            mode="dark"
-            >
+        mode="light"
+        icon={<Icon type="left" />}
+        onLeftClick={() => {this.props.history.goBack()}}
+        rightContent={[
+            <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
+            <Icon key="1" type="ellipsis" />,
+      ]}
+      >
             登录
            </NavBar>
            <WhiteSpace/>  

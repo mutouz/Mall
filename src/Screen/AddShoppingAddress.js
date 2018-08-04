@@ -59,7 +59,7 @@ export default class AddShoppingAddress extends Component {
         return (
             <div>
               <NavBar
-                    mode="dark"
+                    mode="light"
                     icon={<Icon type="left" />}
                     onLeftClick={() => { this.props.history.goBack() }}
                 >设置收货地址</NavBar>

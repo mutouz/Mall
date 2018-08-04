@@ -43,7 +43,7 @@ export default class UpdateCustomerScreen extends Component {
     return (
       <div>
         <NavBar
-            mode="dark"
+            mode="light"
             icon={<Icon type="left" />}
             onLeftClick={() => {this.props.history.goBack()}}
         >修改用户信息</NavBar>

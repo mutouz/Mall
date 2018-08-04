@@ -27,6 +27,13 @@ const DeleteCardsUrl=http+pore+'/api/ShoppingCart/DeleteCards';//清空购物车
 const SearchFirstScreenImagesUrl=http+pore+'/api/FirstScreenImages/SearchFirstScreenImages';//首屏缩略图
 const SearchSpecialSaleUrl=http+pore+'/api/SpecialSale/SearchSpecialSale';//喜欢
 const SearchDetonationModelUrl=http+pore+'/api/DetonationModel/SearchDetonationModel';//特卖
+
+const SearchOrderDaiUrl=http+pore+'/api/PlaceOrder/SearchOrderDai';//查询待收货订单
+const SearchOrderWeiUrl=http+pore+'/api/PlaceOrder/SearchOrderWei';//查询未发货
+const SearchOrderFaUrl=http+pore+'/api/PlaceOrder/SearchOrderFa';//查询发货中
+const SearchOrderOkUrl=http+pore+'/api/PlaceOrder/SearchOrderOk';//查询收货成功订单
+
+
 export {
     DeleteCardsUrl,
     registerUrl,
@@ -53,5 +60,8 @@ export {
     SeachProducsUrl,
     SearchFirstScreenImagesUrl,
     SearchSpecialSaleUrl,
-    SearchDetonationModelUrl
+    SearchDetonationModelUrl,
+    SearchOrderDaiUrl,
+    SearchOrderWeiUrl,
+    SearchOrderOkUrl
 }
