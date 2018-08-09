@@ -1,5 +1,5 @@
-const http="http://localhost:";
-const pore="52263";
+const http="http://39.105.93.216:";
+const pore="81";
 
 const imgUrl=http+pore+'/AvatarImg/';
 const registerUrl=http+pore+'/api/User/Regist';
