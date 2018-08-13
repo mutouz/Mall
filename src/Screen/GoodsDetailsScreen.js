@@ -98,8 +98,6 @@ constructor(props) {
       >
       商品信息
       </NavBar>                         
-        
-
         <WingBlank>
         <WhiteSpace/>
         <Carousel
@@ -208,7 +206,7 @@ constructor(props) {
                     }
                     const goods = [
                         {
-                            good:this.state.goodsDetail.ID,
+                            pid:this.state.goodsDetail.ID,
                             count:this.state.val
                         }
                     ];

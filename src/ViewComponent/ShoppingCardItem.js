@@ -88,7 +88,7 @@ export default class ShoppingCardItem extends Component {
                             
                         </span>
                     <Card.Footer
-                content={`价格为:${this.props.Product.Price}元`}
+                content={`价格为:${this.props.Product.SalePrice}元`}
                 extra={`下单数量:${this.props.Count}`}
             />
              </Card>

@@ -17,20 +17,29 @@ import React, { Component } from 'react'
     //导入要用的
     import OrderData from '../DataServer/OrderData'
     import UserManager from '../DataServer/UserManager'
+    import SearchProductManager from '../DataServer/SearchProductManager'
     import { imgUrl } from '../DataServer/UrlConfig'
     import ShoppingOrderItem from '../ViewComponent/ShoppingOrderItem'
+
     // import FllowItem from '../ViewComponent/FollwItem'
     export default class AddOrder extends Component {
-
-
+    //得到值填充到state中数据格式是[goods]和count
+     //展示值
         async  componentDidMount() {
             const json = this.props.match.params.goods;
-            const good = JSON.parse(json);
-            const goods=this.state.goods;
-            goods.push(good);
+            const data = JSON.parse(json);
+            let goods=this.state.goods;
+            for (let i = 0; i < data.length; i++) {
+               goods.push({good: await SearchProductManager.SearchProductMessage(data[i].pid),count:data[i].count})
+            }
+            this.setState({goods})
             console.log(goods)
-            this.setState({goods});
-            console.log(this.state.goods)
+            // const goods=this.state.goods;
+            // goods.push(good);
+
+            // console.log(goods)
+            // this.setState({goods});
+            // console.log(this.state.goods)
         //   const id = this.props.match.params.ID;
         //   console.log(id)
         //   const count=this.props.match.params.count;

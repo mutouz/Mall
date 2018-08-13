@@ -110,7 +110,6 @@ onCancel=async()=>{
                     icon={<Icon type="left" />}
                     onLeftClick={() => console.log('onLeftClick')}
                     rightContent={[
-
                         <Icon key="1" type="ellipsis" />,
                     ]}
                 >土特产商城</NavBar>

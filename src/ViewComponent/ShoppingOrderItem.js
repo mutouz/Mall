@@ -30,8 +30,8 @@ export default class ShoppingCardItem extends Component {
        
         let imgFils="";
         let images="";
-        if (this.props[0].good.ProductThumbnail!=null&&!this.props[0].good.ProductThumbnail) {
-          imgFils=this.props[0].good.ProductThumbnail.split(',')
+        if (this.props.good.data.ProductThumbnail!=null&&!this.props.good.data.ProductThumbnail) {
+          imgFils=this.props.good.data.ProductThumbnail.split(',')
             console.log(imgFils);
             //images将图片全部遍历存储
              images=imgFils.map((image)=>{
@@ -47,18 +47,18 @@ export default class ShoppingCardItem extends Component {
             <WhiteSpace />
             <Card.Header
                 title={"收货地址"}
-                extra={this.props[0].good.ShopingArea}
+                extra={this.props.good.data.ShopingArea}
             />
             <Card>
                 <Card.Header
                     // title={this.props.ID}
-                    thumb={this.props[0].good.ProductThumbnail}
-                    extra={`数量:${this.props[0].count}`}
+                    thumb={this.props.good.data.ProductThumbnail}
+                    extra={`数量:${this.props.count}`}
                 />
                 <Card.Body>
-                    <div>{this.props[0].good.ProductName}</div>
+                    <div>{this.props.good.data.ProductName}</div>
                 </Card.Body>
-                <Card.Footer content={<div>总价</div>} extra={`￥:${this.props[0].good.Price*this.props[0].count}元`} />
+                <Card.Footer content={<div>总价</div>} extra={`￥:${this.props.good.Price*this.props.count}元`} />
             </Card>
             <WhiteSpace />
             <WhiteSpace />
